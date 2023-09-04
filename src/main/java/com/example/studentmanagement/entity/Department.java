@@ -1,13 +1,16 @@
 package com.example.studentmanagement.entity;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,15 +26,15 @@ public class Department implements Serializable {
     private Long departmentId;
 
     @Column(name = "NAME", nullable = false)
-    private String name;
+    private String departmentName;
 
     @Column(name = "HOD")
-    private String hod;
+    private String departmentHod;
 
     @Column(name = "CONTACT_NO")
-    private String contactNo;
+    private String departmentContactNo;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Course> courseList;
+    private Set<Course> courseList = new HashSet<>();
 
 }

@@ -8,6 +8,7 @@ import com.example.studentmanagement.entity.User;
 import com.example.studentmanagement.util.ResponseUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -61,13 +62,16 @@ public class UserAuthService implements UserDetailsService {
                 User authenticatedUser = userRepo.findByUserName(userName);
                 authenticatedUser.setAttemptCount(0);
                 userRepo.save(authenticatedUser);
+                System.out.println(authenticatedUser.getAttemptCount());
                 String newGeneratedToken = jwtUtil.generateToken(userDetails);
                 return ResponseUtility.resourceFound(new AuthResponse(newGeneratedToken), "Authenticated", HttpStatus.OK);
 
             }
 
         } catch(Exception e) {
-            return ResponseUtility.resourceNotFound(null, "Something went wrong", HttpStatus.CONFLICT);
+//            return ResponseUtility.resourceNotFound(null, "Something went wrong", HttpStatus.CONFLICT);
+            e.printStackTrace();
+            return ResponseUtility.resourceNotFound(null, "Something went worng there", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

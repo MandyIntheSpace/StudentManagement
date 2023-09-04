@@ -1,13 +1,13 @@
 package com.example.studentmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
