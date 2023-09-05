@@ -26,7 +26,8 @@ public class Student implements Serializable {
     @Column(name = "ID")
     private Long studentId;
 
-    @Column(name = "FIRST_NAME", nullable = false)
+//    @Column(name = "FIRST_NAME", nullable = false)
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
     @Column(name = "MIDDLE_NAME")

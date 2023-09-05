@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 public class EducationRquest {
 
-    private String educationId;
-
     private String level;
 
     private String course;
