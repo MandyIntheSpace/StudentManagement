@@ -2,11 +2,14 @@ package com.example.studentmanagement.controller;
 
 import com.example.studentmanagement.Request.RegistrationRequest;
 import com.example.studentmanagement.Response.ResponseBody;
+import com.example.studentmanagement.dto.StudentDetails;
 import com.example.studentmanagement.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -44,6 +47,18 @@ public class StudentController {
     public ResponseEntity<Object> deleteStudent(@PathVariable("studentId") Long studentId) {
         ResponseBody responseBody = this.studentService.deleteStudent(studentId);
         return ResponseEntity.status(responseBody.getStatus()).body(responseBody.getBody());
+    }
+
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<RegistrationRequest>> searchStudent(@PathVariable("keyword") String keyword) {
+        try{
+            System.out.println("hello world");
+            List<RegistrationRequest> studentDetailsList = this.studentService.searchStudent(keyword);
+            return new ResponseEntity<List<RegistrationRequest>>(studentDetailsList, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

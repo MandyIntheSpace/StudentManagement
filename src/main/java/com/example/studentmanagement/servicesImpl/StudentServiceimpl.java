@@ -8,6 +8,7 @@ import com.example.studentmanagement.Repository.StudentRepo;
 import com.example.studentmanagement.Request.RegistrationRequest;
 import com.example.studentmanagement.Response.ResponseBody;
 import com.example.studentmanagement.config.JwtAuthenticationFilter;
+import com.example.studentmanagement.dto.StudentDetails;
 import com.example.studentmanagement.entity.Course;
 import com.example.studentmanagement.entity.Education;
 import com.example.studentmanagement.entity.Student;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceimpl implements StudentService {
@@ -215,6 +217,19 @@ public class StudentServiceimpl implements StudentService {
             e.printStackTrace();
             return ResponseUtility.resouceNotCreated(null, "The user is not updated", HttpStatus.CONFLICT);
         }
+    }
+
+    @Override
+    public List<RegistrationRequest> searchStudent(String keywords) {
+      try{
+          List<Student> studentList = this.studentRepo.findByGender(keywords);
+          List<RegistrationRequest> studentDetails = studentList.stream().map((student) ->
+                  this.modelMapper.map(student, RegistrationRequest.class)).collect(Collectors.toList());
+          return studentDetails;
+      } catch(Exception e) {
+          e.printStackTrace();
+          return null;
+      }
     }
 }
 

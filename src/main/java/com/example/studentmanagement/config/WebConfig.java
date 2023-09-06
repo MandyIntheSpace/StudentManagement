@@ -46,7 +46,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http.csrf().disable()
-                .authorizeHttpRequests().antMatchers("/login").permitAll()
+                .authorizeHttpRequests().antMatchers(LIST_URLS).permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -60,11 +60,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] LIST_URLS = {
             "/login",
-            "/customer/register",
-            "/user/add",
-            "/department/save",
-            "/user/add",
-            "/course/add"
+            "/v3/api-docs",
+            "/v2/api-docs",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**"
     };
 
 
